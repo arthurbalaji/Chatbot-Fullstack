@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chatbot
+    ports:
+      - "3307:3306"  # Changed the host port to 3307
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  springboot-backend:
+    build:
+      context: ./Springboot-backend/demo
+      dockerfile: Dockerfile
+    container_name: springboot-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chatbot?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  python-backend:
+    build:
+      context: ./Python Backend
+      dockerfile: Dockerfile
+    container_name: python-backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+
+  react-frontend:
+    build:
+      context: ./React-frontend
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - springboot-backend
+      - python-backend
+
+volumes:
+  mysql_data:

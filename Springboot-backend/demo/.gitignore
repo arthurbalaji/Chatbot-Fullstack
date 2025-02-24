@@ -4,7 +4,7 @@ HELP.md
 target/
 
 # Except the specific JAR file
-!target/demo-0.0.1-SNAPSHOT.jar
+!target/test-classes/demo-0.0.1-SNAPSHOT.jar
 
 # Maven Wrapper
 !.mvn/wrapper/maven-wrapper.jar

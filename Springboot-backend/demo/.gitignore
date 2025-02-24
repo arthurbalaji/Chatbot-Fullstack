@@ -1,6 +1,15 @@
 HELP.md
+
+# Ignore everything in the target folder
 target/
+
+# Except the specific JAR file
+!target/demo-0.0.1-SNAPSHOT.jar
+
+# Maven Wrapper
 !.mvn/wrapper/maven-wrapper.jar
+
+# Ignore target folders in src/main and src/test
 !**/src/main/**/target/
 !**/src/test/**/target/
 

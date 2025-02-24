@@ -1,10 +1,11 @@
 HELP.md
 
 # Ignore everything in the target folder
-target/
-
-# Except the specific JAR file
-!target/test-classes/demo-0.0.1-SNAPSHOT.jar
+target/classes
+target/generated-sources
+target/generated-test-sources
+target/maven-archiver
+target/maven-status
 
 # Maven Wrapper
 !.mvn/wrapper/maven-wrapper.jar

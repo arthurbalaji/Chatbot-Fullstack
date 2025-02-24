@@ -32,7 +32,7 @@ const ChatHistory = () => {
     useEffect(() => {
         if (email) {
             
-            axios.get(`http://localhost:8080/chats/user/${email}`)
+            axios.get(`http://springboot-backend:8080/chats/user/${email}`)
                 .then(response => {
                     setChats(response.data);
                 })
@@ -41,7 +41,7 @@ const ChatHistory = () => {
                 });
 
             
-            axios.get(`http://localhost:8080/users/${email}`)
+            axios.get(`http://springboot-backend:8080/users/${email}`)
                 .then(response => {
                     setUser(response.data);
                 })
@@ -63,7 +63,7 @@ const ChatHistory = () => {
             messages: []
         };
 
-        axios.post(`http://localhost:8080/chats/${email}`, newChat)
+        axios.post(`http://springboot-backend:8080/chats/${email}`, newChat)
             .then(response => {
                 const newChatId = response.data.id;
                 setSelectedChatId(newChatId);

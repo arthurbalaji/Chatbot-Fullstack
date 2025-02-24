@@ -16,6 +16,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - chatbot-network
 
   springboot-backend:
     build:
@@ -34,6 +36,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    networks:
+      - chatbot-network
 
   python-backend:
     build:
@@ -44,6 +48,8 @@ services:
       - "5000:5000"
     depends_on:
       - mysql
+    networks:
+      - chatbot-network
 
   react-frontend:
     build:
@@ -55,6 +61,12 @@ services:
     depends_on:
       - springboot-backend
       - python-backend
+    networks:
+      - chatbot-network
 
 volumes:
   mysql_data:
+
+networks:
+  chatbot-network:
+    driver: bridge

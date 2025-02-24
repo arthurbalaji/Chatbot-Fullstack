@@ -11,7 +11,7 @@ const Chat = ({ chatId, email }) => {
     useEffect(() => {
         if (chatId) {
             
-            axios.get(`http://localhost:8080/chats/${chatId}`)
+            axios.get(`http://springboot-backend:8080/chats/${chatId}`)
                 .then(response => {
                     setMessages(response.data.messages || []);
                     setChatName(response.data.name || 'Untitled Chat');
@@ -32,13 +32,13 @@ const Chat = ({ chatId, email }) => {
         };
 
         
-        axios.put(`http://localhost:8080/chats/${chatId}/messages`, userMessage)
+        axios.put(`http://springboot-backend:8080/chats/${chatId}/messages`, userMessage)
             .then(response => {
                 setMessages([...messages, userMessage]);
                 setLoading(true);
 
                 
-                axios.post('http://127.0.0.1:5000/chat', { message: input })
+                axios.post('http://python-backend:5000/chat', { message: input })
                     .then(apiResponse => {
                         const aiMessage = {
                             sender: 'ai',
@@ -47,7 +47,7 @@ const Chat = ({ chatId, email }) => {
                         };
 
                         
-                        axios.put(`http://localhost:8080/chats/${chatId}/messages`, aiMessage)
+                        axios.put(`http://springboot-backend:8080/chats/${chatId}/messages`, aiMessage)
                             .then(() => {
                                 setMessages(prevMessages => [...prevMessages, aiMessage]);
                                 setLoading(false);
@@ -75,7 +75,7 @@ const Chat = ({ chatId, email }) => {
 
     const handleChatNameBlur = () => {
         
-        axios.put(`http://localhost:8080/chats/${chatId}`, { name: chatName })
+        axios.put(`http://springboot-backend:8080/chats/${chatId}`, { name: chatName })
             .catch(error => {
                 console.error('Error updating chat name:', error);
             });

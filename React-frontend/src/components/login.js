@@ -20,7 +20,7 @@ const Login = () => {
             const { displayName, email, photoURL } = user;
 
             
-            const userExistsResponse = await axios.get(`http://localhost:8080/users/exists/${email}`);
+            const userExistsResponse = await axios.get(`http://springboot-backend:8080/users/exists/${email}`);
             const userExists = userExistsResponse.data;
 
             if (!userExists) {
@@ -30,7 +30,7 @@ const Login = () => {
                     name: displayName,
                     profilePictureLink: photoURL
                 };
-                await axios.post('http://localhost:8080/users', newUser);
+                await axios.post('http://springboot-backend:8080/users', newUser);
             }
 
             

@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"])
+CORS(app, origins=["*"])
 
 API_KEY = "b01549077022aad0fe3f040b5bd456a819fa4e0b5e793a9b0f1e48020591fc21"  
 URL = "https://api.together.xyz/v1/chat/completions"
